@@ -1,0 +1,15 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import Icon from '../components/Icon';
+import { vegetableImages } from '../utils/visuals';
+
+export default function OrderConfirmation() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const order = location.state?.order;
+
+  if (!order) return <div className="min-h-[70vh] flex items-center justify-center px-4"><div className="glass rounded-[30px] p-10 text-center"><div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f5eee9] text-[#a45d48]"><Icon name="package" size={24} /></div><h2 className="mt-5 text-2xl font-black">Order information not found</h2><p className="mt-2 text-sm text-[#7b8982]">Place an order to see the confirmation screen.</p><button onClick={() => navigate('/')} className="mt-6 rounded-2xl bg-[#173e2d] px-5 py-3 text-sm font-black text-white">Return to store</button></div></div>;
+
+  return <div className="relative min-h-[76vh] overflow-hidden px-4 py-14"><img src={vegetableImages.market} alt="" className="absolute inset-0 h-full w-full object-cover opacity-[.07] blur-3xl" /><div className="relative mx-auto max-w-2xl"><div className="glass soft-card overflow-hidden rounded-[36px] text-center"><div className="relative bg-[#173e2d] px-6 py-12 text-white"><div className="absolute inset-0 opacity-20"><img src={vegetableImages.mixed} alt="" className="h-full w-full object-cover" /></div><div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-[26px] bg-[#c9ef5d] text-[#173e2d] shadow-xl"><Icon name="check" size={36} strokeWidth={2.4} /></div><div className="relative mt-6 text-4xl font-black tracking-tight">Order confirmed</div><div className="relative mt-2 text-sm text-white/65">Your fresh basket is officially on its way through the order flow.</div></div><div className="p-7 sm:p-9"><div className="grid grid-cols-3 gap-3 text-left"><Info label="Order ID" value={`#${order.id}`} /><Info label="Status" value={order.status} /><Info label="Total" value={`₹${Number(order.totalAmount).toFixed(2)}`} /></div><div className="mt-7 rounded-3xl bg-[#f0f6ec] p-5 text-left"><div className="flex gap-3"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[#1f7a55] shadow-sm"><Icon name="package" size={20} /></div><div><div className="text-sm font-black">What happens next?</div><p className="mt-1 text-xs leading-5 text-[#718079]">Your order has been submitted successfully. The backend can now process it exactly as before.</p></div></div></div><button onClick={() => navigate('/')} className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-[#173e2d] px-6 py-3.5 text-sm font-black text-white">Continue shopping <Icon name="arrowRight" size={17} /></button></div></div></div></div>;
+}
+
+function Info({ label, value }) { return <div className="rounded-2xl bg-white/70 p-4 ring-1 ring-black/5"><div className="text-[10px] font-black uppercase tracking-[.14em] text-[#8b9892]">{label}</div><div className="mt-2 break-words text-sm font-black text-[#18302a]">{value}</div></div>; }

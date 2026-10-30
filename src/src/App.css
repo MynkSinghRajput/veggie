@@ -1,0 +1,175 @@
+:root {
+  --ink: #18302a;
+  --muted: #6c7c75;
+  --green: #1f7a55;
+  --green-dark: #14553a;
+  --green-soft: #e6f4ed;
+  --lime: #b7df58;
+  --cream: #f7f8f2;
+  --line: rgba(24, 48, 42, 0.1);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(183, 223, 88, 0.11), transparent 28%),
+    linear-gradient(180deg, #fbfcf8 0%, #f5f8f2 100%);
+}
+
+a { color: inherit; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+
+.app-shell { min-height: 100vh; }
+
+.glass {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  box-shadow: 0 20px 60px rgba(31, 79, 57, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.soft-card {
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 45px rgba(31, 79, 57, 0.08);
+}
+
+.page-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .025;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(.985);
+  filter: blur(4px);
+  transition:
+    opacity .7s ease,
+    transform .8s cubic-bezier(.2,.75,.2,1),
+    filter .8s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+  filter: blur(0);
+}
+
+.page-fade { animation: pageFade .45s ease both; }
+
+@keyframes pageFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.float-slow { animation: floatSlow 7s ease-in-out infinite; }
+.float-slower { animation: floatSlower 10s ease-in-out infinite; }
+.float-spin { animation: floatSpin 13s linear infinite; }
+
+@keyframes floatSlow {
+  0%, 100% { transform: translate3d(0,0,0) rotate(-2deg); }
+  50% { transform: translate3d(10px,-16px,0) rotate(4deg); }
+}
+@keyframes floatSlower {
+  0%, 100% { transform: translate3d(0,0,0) rotate(2deg); }
+  50% { transform: translate3d(-12px,-22px,0) rotate(-4deg); }
+}
+@keyframes floatSpin {
+  0% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(8deg) translateY(-10px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+.login-transition {
+  animation: loginPulse .55s cubic-bezier(.2,.78,.2,1) forwards;
+}
+@keyframes loginPulse {
+  0% { transform: scale(1); box-shadow: 0 14px 35px rgba(31, 122, 85, .2); }
+  55% { transform: scale(1.06); box-shadow: 0 18px 65px rgba(31, 122, 85, .32); }
+  100% { transform: scale(1.24); opacity: 0; }
+}
+
+.fly-to-cart {
+  position: fixed;
+  z-index: 120;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 14px 28px rgba(28, 74, 51, .22);
+  pointer-events: none;
+  animation: flyCart .72s cubic-bezier(.55,0,.2,1) forwards;
+  transform-origin: center;
+}
+@keyframes flyCart {
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  60% { transform: translate(var(--fly-x), var(--fly-y)) scale(.72); opacity: .95; }
+  100% { transform: translate(var(--fly-x), var(--fly-y)) scale(.3); opacity: 0; }
+}
+
+.cart-bump { animation: cartBump .38s ease; }
+@keyframes cartBump { 35% { transform: scale(1.17); } 100% { transform: scale(1); } }
+
+.hero-parallax { transform: translate3d(0, var(--parallax-y, 0px), 0); transition: transform .12s linear; }
+
+.hero-spotlight {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 72% 34%, rgba(255,255,255,.26), transparent 20%),
+    radial-gradient(circle at 22% 80%, rgba(183,223,88,.16), transparent 28%);
+  z-index: -1;
+}
+
+.input-shell:focus-within {
+  border-color: rgba(31, 122, 85, .5);
+  box-shadow: 0 0 0 4px rgba(31, 122, 85, .1);
+  transform: translateY(-1px);
+}
+
+.input-shell { transition: border-color .2s, box-shadow .2s, transform .2s; }
+
+.product-card {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(25, 74, 50, .14);
+  border-color: rgba(31, 122, 85, .18);
+}
+.product-card-image {
+  transition: transform .65s cubic-bezier(.2,.7,.2,1), filter .65s ease;
+}
+.product-card:hover .product-card-image { transform: scale(1.06); filter: saturate(1.08); }
+
+.category-pill { transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+.category-pill:hover { transform: translateY(-2px); }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-reveal { transform: translate3d(0, 20px, 0); }
+}
