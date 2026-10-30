@@ -42,6 +42,19 @@ public class OrderService {
 
         Order order = new Order();
         order.setUser(user);
+
+// Delivery details
+        order.setDeliveryName(request.getDeliveryName());
+        order.setDeliveryContact(request.getDeliveryContact());
+        order.setHouseNumber(request.getHouseNumber());
+        order.setStreet(request.getStreet());
+        order.setArea(request.getArea());
+        order.setCity(request.getCity());
+        order.setState(request.getState());
+        order.setPincode(request.getPincode());
+        order.setDeliveryInstructions(request.getDeliveryInstructions());
+
+// Order is initially placed/pending payment
         order.setStatus("COMPLETED");
 
         List<OrderItem> orderItems = new ArrayList<>();
